@@ -1,0 +1,28 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "f3d629a7-79fb-4de5-a8df-36c569070d39",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "8c9fd423-da6d-8c83-413b-0369af7e7d68",
+        "databaseItemName": "EH_SL_Stock"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "ced1a571-fb2b-4605-8893-1b9cb159cca2",
+        "content": " stock\n | take 100",
+        "title": "Stock",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      },
+      {
+        "id": "e4df524a-1e9e-4544-b43a-18cd4fd72276",
+        "content": " stock\n | where [\"time\"] > ago(5m)\n | summarize avgPrice = avg(todecimal(bidPrice)) by symbol\n | project symbol, avgPrice",
+        "title": "Stock2",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      }
+    ]
+  }
+}

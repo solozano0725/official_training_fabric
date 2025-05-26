@@ -1,0 +1,99 @@
+{
+  "schema_version": "60",
+  "tiles": [
+    {
+      "id": "949ab97c-153d-4969-8c33-4ad45c3ba309",
+      "title": "Average Prices",
+      "visualType": "column",
+      "pageId": "cc25bb56-42c7-4d38-b5c3-f93a6948f8ba",
+      "layout": {
+        "x": 0,
+        "y": 0,
+        "width": 9,
+        "height": 7
+      },
+      "queryRef": {
+        "kind": "query",
+        "queryId": "5212e8fc-70a0-466a-9a71-d37773f79788"
+      },
+      "visualOptions": {
+        "multipleYAxes": {
+          "base": {
+            "id": "-1",
+            "label": "",
+            "columns": [],
+            "yAxisMaximumValue": null,
+            "yAxisMinimumValue": null,
+            "yAxisScale": "linear",
+            "horizontalLines": []
+          },
+          "additional": [],
+          "showMultiplePanels": false
+        },
+        "hideLegend": false,
+        "legendLocation": "bottom",
+        "xColumnTitle": "",
+        "xColumn": null,
+        "yColumns": null,
+        "seriesColumns": null,
+        "xAxisScale": "linear",
+        "verticalLine": "",
+        "crossFilter": [],
+        "crossFilterDisabled": false,
+        "drillthroughDisabled": false,
+        "drillthrough": [],
+        "selectedDataOnLoad": {
+          "all": true,
+          "limit": 10
+        }
+      }
+    }
+  ],
+  "baseQueries": [],
+  "parameters": [
+    {
+      "kind": "duration",
+      "id": "f7202bb2-c26a-47bf-aaa4-c5d72e57b9a8",
+      "displayName": "Time range",
+      "description": "",
+      "beginVariableName": "_startTime",
+      "endVariableName": "_endTime",
+      "defaultValue": {
+        "kind": "dynamic",
+        "count": 1,
+        "unit": "hours"
+      },
+      "showOnPages": {
+        "kind": "all"
+      }
+    }
+  ],
+  "dataSources": [
+    {
+      "id": "863ddb9b-fc38-4062-8020-e18deee72042",
+      "kind": "kusto-trident",
+      "scopeId": "kusto-trident",
+      "clusterUri": "",
+      "database": "8c9fd423-da6d-8c83-413b-0369af7e7d68",
+      "name": "EH_SL_Stock",
+      "workspace": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "pages": [
+    {
+      "name": "Page 1",
+      "id": "cc25bb56-42c7-4d38-b5c3-f93a6948f8ba"
+    }
+  ],
+  "queries": [
+    {
+      "dataSource": {
+        "kind": "inline",
+        "dataSourceId": "863ddb9b-fc38-4062-8020-e18deee72042"
+      },
+      "text": " stock\r\n | where [\"time\"] > ago(5m)\r\n | summarize avgPrice = avg(todecimal(bidPrice)) by symbol\r\n | project symbol, avgPrice",
+      "id": "5212e8fc-70a0-466a-9a71-d37773f79788",
+      "usedVariables": []
+    }
+  ]
+}
