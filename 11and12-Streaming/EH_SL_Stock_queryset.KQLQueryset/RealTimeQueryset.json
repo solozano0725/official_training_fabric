@@ -1,0 +1,46 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "f3d629a7-79fb-4de5-a8df-36c569070d39",
+        "clusterUri": "",
+        "type": "Fabric",
+        "databaseItemId": "8c9fd423-da6d-8c83-413b-0369af7e7d68",
+        "databaseItemName": "EH_SL_Stock"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "ced1a571-fb2b-4605-8893-1b9cb159cca2",
+        "content": " stock\n | take 100",
+        "title": "Stock",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      },
+      {
+        "id": "e4df524a-1e9e-4544-b43a-18cd4fd72276",
+        "content": " stock\n | where [\"time\"] > ago(5m)\n | summarize avgPrice = avg(todecimal(bidPrice)) by symbol\n | project symbol, avgPrice",
+        "title": "Stock2",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      },
+      {
+        "id": "c0a4d303-9627-407f-8523-e5f5f6777097",
+        "content": " // See the most recent data - records ingested in the last 24 hours.\n bikes\n | where ingestion_time() between (now(-1d) .. now())\n",
+        "title": "Bikes",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      },
+      {
+        "id": "734b56d2-3202-408a-a16b-31d32e0583b8",
+        "content": " ['bikes-by-street']\n | take 100",
+        "title": "BikesByStreet",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      },
+      {
+        "id": "1585c717-dec8-457c-9a58-0b83b637e313",
+        "content": " ['bikes-by-street']\n | summarize TotalBikes = sum(tolong(SUM_No_Bikes)) by Window_End_Time, Street\n | sort by Window_End_Time desc , Street asc",
+        "title": "BikesByStreet2",
+        "dataSourceId": "f3d629a7-79fb-4de5-a8df-36c569070d39"
+      }
+    ]
+  }
+}
